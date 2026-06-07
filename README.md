@@ -15,10 +15,7 @@ todo-project
 │   ├── serviceaccount.yaml
 │   ├── role.yaml
 │   └── rolebinding.yaml
-│
-└── ansible
-    ├── inventory
-    └── deploy.yml
+
 ```
     
 
@@ -26,24 +23,22 @@ todo-project
 
 ```
 
-GitHub Checkout
-   ↓
+Developer Push
+      ↓
+GitHub
+      ↓
 Jenkins
-   ↓
+      ↓
 Build Docker Image
-   ↓
+      ↓
 Push Docker Image
-   ↓
-Update deployment.yaml
-   ↓
+      ↓
+Update deployment.yaml (or Helm values.yaml)
+      ↓
 Git Commit & Push
-   ↓
-ansible-playbook deploy.yml        #### Kubernetes (RBAC + Deployment + Service)
-   ↓
-RBAC Applied
-   ↓
-Deployment Applied
-   ↓
-Service Applied
-  
+      ↓
+ArgoCD detects Git change
+      ↓
+ArgoCD deploys to Kubernetes
+
 ```
