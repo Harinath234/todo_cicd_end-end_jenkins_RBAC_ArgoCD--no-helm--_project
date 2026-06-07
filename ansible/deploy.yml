@@ -1,0 +1,16 @@
+---
+- name: Deploy Todo App using Helm
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - name: Deploy Helm Chart
+      command: >
+        helm upgrade --install todo-release ./helm
+        --namespace todons
+        --create-namespace
+        --set image.repository={{ image_repo }}
+        --set image.tag={{ image_tag }}
+        --set service.type=LoadBalancer
