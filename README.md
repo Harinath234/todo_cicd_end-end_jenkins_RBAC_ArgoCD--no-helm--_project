@@ -1,48 +1,45 @@
 ## Project Structure
 
 ```text
-todo-project/
+todo-project
 │
 ├── Jenkinsfile
 ├── Dockerfile
-├── package.json
-├── package-lock.json
-├── sonar-project.properties
 │
-├── backend/
-│
-├── Kubernetes/
-│   ├── namespace.yaml
+├── Kubernetes
 │   ├── deployment.yaml
 │   └── service.yaml
 │
-├── rbac/
+├── rbac
+│   ├── namespace.yaml
 │   ├── serviceaccount.yaml
 │   ├── role.yaml
-│   ├── rolebinding.yaml
-│   └── secret.yaml
+│   └── rolebinding.yaml
 │
-└── .github/
-    └── workflows/
+└── ansible
+    ├── inventory
+    └── deploy.yml
 ```
     
 
+## Project Flow
+
 ```
-Developer
-   |
-   v
+
 GitHub
-   |
-   v
+   ↓
 Jenkins
-   |
-   +--> SonarQube
-   +--> Trivy
-   +--> Docker Build
-   +--> DockerHub
-   |
-   +--> kubectl apply
-            |
-            v
-        Kubernetes
+   ↓
+Build Docker Image
+   ↓
+Push Docker Image
+   ↓
+Update deployment.yaml
+   ↓
+Git Push
+   ↓
+Ansible Playbook
+   ↓
+Kubernetes (RBAC + Deployment + Service)
+
 ```
